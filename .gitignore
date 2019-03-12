@@ -6,7 +6,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # Private configuration
-config.js
+config.private.js
 
 # Runtime data
 pids

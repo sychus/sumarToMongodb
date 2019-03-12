@@ -4,7 +4,7 @@ const mongodb = require('mongodb');
 const sql = require('mssql');
 const E = require('linq');
 
-const config = require("./config.js");
+const config = require("./config.private.js");
 
 async function exportTable(tableName, targetDb, sqlPool) {
     console.log("Replicating " + tableName + " to mongodb");
