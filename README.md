@@ -1,4 +1,4 @@
-# sql-to-mongodb
+# Sumar a mongodb
 
 Script en node que procesa la tabla con información de sumar en sql y la exporta a mongodb.
 
