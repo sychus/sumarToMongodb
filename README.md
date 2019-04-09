@@ -1,34 +1,20 @@
 # sql-to-mongodb
 
-A Node.js script to convert an SQL database to a MongoDB database.
+Script en node que procesa la tabla con información de sumar en sql y la exporta a mongodb.
 
-Features
+## Como usarlo
 
-- Automatically detects the primary key for each SQL table and copys it to the MongoDB _id field.
-- Optionally remaps replaces and primary keys with MongoDB ObjectId's and remaps foreign keys.
-- Automatically copies across types correctly (eg numbers and dates).
-
-## Usage
-
-### Install 
+### Instalar dependencias
 
 First install dependencies:
 
     npm install
 
-### Setup
+### Configuración
 
-Edit config.js. Add the connection string for your SQL database. Modify the MongoDB connection string if necessary. Set the name of your target database in MongoDB.
+Crear un archivo config.private.js a partir del archivo config.private.template, donde deberá agregar los connection strings y los nombres
+de las bases de datos y tablas correspondientes.
 
-### Run
+### Ejecución
 
     node index.js
-
-### Wait
-
-It might take some time to replicate!
-
-## More!
-
-Find more like this in my new book [Data Wrangling with JavaScript](http://bit.ly/2t2cJu2)
-    

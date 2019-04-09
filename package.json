@@ -1,7 +1,7 @@
 {
-  "name": "sql-to-mongodb",
-  "version": "1.0.0",
-  "description": "",
+  "name": "afiliados_sumar",
+  "version": "1.0.1",
+  "description": "Migra información de sumar a la colección sumar en mongodb",
   "main": "index.js",
   "dependencies": {
     "linq": "^3.0.9",

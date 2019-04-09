@@ -1,0 +1,8 @@
+module.exports = {
+    sqlConnectionString: "Server=IP;Database=DatabaseName;User Id=user;Password=password;",
+    mongoConnectionString: "mongodb://user:password@server:port/db?authSource=user",
+    targetDatabaseName: "mongodbDatabase",
+    sourceTable: "TablaSumar",
+    targetTable: 'TablaTemporal',
+    targetTableId: "idDeLaTabla"
+};
