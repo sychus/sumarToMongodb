@@ -47,7 +47,9 @@ async function main() {
 main()
     .then(() => {
         console.log('Proceso finalizado');
+        process.exit(0);
     })
     .catch(err => {
         console.error("Database replication errored out.", err);
+        process.exit(0);
     });

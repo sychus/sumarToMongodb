@@ -1,5 +1,5 @@
 {
-  "name": "afiliados_sumar",
+  "name": "andes-sumar",
   "version": "1.0.1",
   "description": "Migra información de sumar a la colección sumar en mongodb",
   "main": "index.js",
