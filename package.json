@@ -1,6 +1,6 @@
 {
   "name": "andes-sumar",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "Migra información de sumar a la colección sumar en mongodb",
   "main": "index.js",
   "dependencies": {

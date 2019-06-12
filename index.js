@@ -41,7 +41,11 @@ async function main() {
     const targetDb = mongoClient.db(config.targetDatabaseName);
     const sqlPool = await sql.connect(config.sqlConnectionString);
     // Proceso de export
+    // Backup de los datos actuales de sumar
+    await targetDb.dropCollection('sumarOld');
+    await targetDb.renameCollection('sumar', 'sumarOld');
     await exportTable(config.targetTable, targetDb, sqlPool);
+    await targetDb.renameCollection('sumarTemp', 'sumar');
 }
 
 main()
