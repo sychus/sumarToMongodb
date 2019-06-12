@@ -42,7 +42,16 @@ async function main() {
     const sqlPool = await sql.connect(config.sqlConnectionString);
     // Proceso de export
     // Backup de los datos actuales de sumar
-    await targetDb.dropCollection('sumarOld');
+    const collections = await targetDb.collections();
+
+    // Para el caso que no exista colección de backup
+    if (collections.map(c => c.s.name).includes('sumarOld')) {
+        await targetDb.dropCollection('sumarOld');
+    }
+    // Para el caso inicial que la colección sumar no exista
+    if (!collections.map(c => c.s.name).includes('sumar')) {
+        await targetDb.createCollection('sumar');
+    }
     await targetDb.renameCollection('sumar', 'sumarOld');
     await exportTable(config.targetTable, targetDb, sqlPool);
     await targetDb.renameCollection('sumarTemp', 'sumar');
