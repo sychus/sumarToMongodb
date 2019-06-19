@@ -37,24 +37,30 @@ async function exportTable(tableName, targetDb, sqlPool) {
 
 async function main() {
     // Conexiones
-    const mongoClient = await mongodb.MongoClient.connect(config.mongoConnectionString);
-    const targetDb = mongoClient.db(config.targetDatabaseName);
-    const sqlPool = await sql.connect(config.sqlConnectionString);
-    // Proceso de export
-    // Backup de los datos actuales de sumar
-    const collections = await targetDb.collections();
+    try {
+        const mongoClient = await mongodb.MongoClient.connect(config.mongoConnectionString);
+        const targetDb = mongoClient.db(config.targetDatabaseName);
+        const sqlPool = await sql.connect(config.sqlConnectionString);
+        // Proceso de export
+        // Backup de los datos actuales de sumar
+        const collections = await targetDb.collections();
 
-    // Para el caso que no exista colección de backup
-    if (collections.map(c => c.s.name).includes('sumarOld')) {
-        await targetDb.dropCollection('sumarOld');
+        // Para el caso que no exista colección de backup
+        if (collections.map(c => c.s.name).includes('sumarOld')) {
+            await targetDb.dropCollection('sumarOld');
+        }
+        // Para el caso inicial que la colección sumar no exista
+        if (!collections.map(c => c.s.name).includes('sumar')) {
+            await targetDb.createCollection('sumar');
+        }
+        await targetDb.renameCollection('sumar', 'sumarOld');
+        await exportTable(config.targetTable, targetDb, sqlPool);
+        await targetDb.renameCollection('sumarTemp', 'sumar');
+        // Creamos el indice para mejorar la performance
+        await targetDb.collection('sumar').createIndex({ activo: 1, afidni: 1 });
+    } catch (err) {
+        throw (err);
     }
-    // Para el caso inicial que la colección sumar no exista
-    if (!collections.map(c => c.s.name).includes('sumar')) {
-        await targetDb.createCollection('sumar');
-    }
-    await targetDb.renameCollection('sumar', 'sumarOld');
-    await exportTable(config.targetTable, targetDb, sqlPool);
-    await targetDb.renameCollection('sumarTemp', 'sumar');
 }
 
 main()
@@ -63,6 +69,6 @@ main()
         process.exit(0);
     })
     .catch(err => {
-        console.error("Database replication errored out.", err);
+        console.error("El proceso ha fallado, verifique el error.", err);
         process.exit(0);
     });
